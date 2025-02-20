@@ -365,3 +365,13 @@ Route::get('/front-pages/landing', [Landing::class, 'index'])->name('front-pages
 
 // locale
 Route::get('/lang/{locale}', [LanguageController::class, 'swap']);
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('/');
+    })->name('dashboard');
+});

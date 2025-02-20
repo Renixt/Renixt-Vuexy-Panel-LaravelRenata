@@ -27,3 +27,5 @@
 @yield('page-style')
 
 @livewireStyles
+
+@livewireStyles
