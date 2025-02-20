@@ -159,12 +159,8 @@ use App\Http\Controllers\charts\ApexCharts;
 use App\Http\Controllers\charts\ChartJs;
 use App\Http\Controllers\maps\Leaflet;
 
-// Main Page Route
-Route::get('/', [Analytics::class, 'index'])->name('dashboard-analytics');
-Route::get('/dashboard/analytics', [Analytics::class, 'index'])->name('dashboard-analytics');
-Route::get('/dashboard/crm', [Crm::class, 'index'])->name('dashboard-crm');
-// locale
-Route::get('/lang/{locale}', [LanguageController::class, 'swap']);
+
+Route::middleware('auth')->group(function() {
 
 // layout
 Route::get('/layouts/collapsed-menu', [CollapsedMenu::class, 'index'])->name('layouts-collapsed-menu');
@@ -181,7 +177,6 @@ Route::get('/layouts/container', [Container::class, 'index'])->name('layouts-con
 Route::get('/layouts/blank', [Blank::class, 'index'])->name('layouts-blank');
 
 // Front Pages
-Route::get('/front-pages/landing', [Landing::class, 'index'])->name('front-pages-landing');
 Route::get('/front-pages/pricing', [Pricing::class, 'index'])->name('front-pages-pricing');
 Route::get('/front-pages/payment', [Payment::class, 'index'])->name('front-pages-payment');
 Route::get('/front-pages/checkout', [Checkout::class, 'index'])->name('front-pages-checkout');
@@ -357,3 +352,16 @@ Route::get('/maps/leaflet', [Leaflet::class, 'index'])->name('maps-leaflet');
 // laravel example
 Route::get('/laravel/user-management', [UserManagement::class, 'UserManagement'])->name('laravel-example-user-management');
 Route::resource('/user-list', UserManagement::class);
+
+Route::get('/dashboard/analytics', [Analytics::class, 'index'])->name('dashboard-analytics');
+Route::get('/dashboard/crm', [Crm::class, 'index'])->name('dashboard-crm');
+});
+
+
+// Main Page Route
+Route::get('/', [Landing::class, 'index'])->name('front-pages-landing');
+Route::get('/front-pages/landing', [Landing::class, 'index'])->name('front-pages-landing');
+
+
+// locale
+Route::get('/lang/{locale}', [LanguageController::class, 'swap']);
