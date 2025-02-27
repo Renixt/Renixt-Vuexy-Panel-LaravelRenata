@@ -158,6 +158,17 @@ use App\Http\Controllers\tables\DatatableExtensions;
 use App\Http\Controllers\charts\ApexCharts;
 use App\Http\Controllers\charts\ChartJs;
 use App\Http\Controllers\maps\Leaflet;
+use App\Http\Controllers\ClientesController;
+
+
+//url, nombre del controlador, nombre del metodo, nombre de la ruta(el metodo en el controlador)
+//Route::resource('clientes', [ClientesController::class])->names('cliente.index');
+Route::resource('clientes', ClientesController::class)->names([
+    'index' => 'clientes.index',
+]);
+Route::post('/clientes/crear',[ClientesController::class, 'store'])->name('clientes.store');
+Route::get('/clientes/{id}',[ClientesController::class, 'show'])->name('clientes.show');
+
 
 
 Route::middleware('auth')->group(function() {
